@@ -33,7 +33,7 @@ class Genesis_Featured_Page_Excerpt extends WP_Widget {
 			'image_alignment' => '',
 			'image_size'      => '',
 			'show_title'      => 0,
-            'content_type'    => 'none',
+			'content_type'    => 'none',
 			'show_content'    => 0,
 			'content_limit'   => '',
 			'more_text'       => '',
@@ -150,11 +150,11 @@ class Genesis_Featured_Page_Excerpt extends WP_Widget {
 
 				echo genesis_html5() ? '<div class="entry-content">' : '';
 
-                if ( 'excerpt' == $instance['content_type'] ) {
-                    the_excerpt();
-                    printf( '<a href="%s" class="more-link">%s</a>', get_permalink(), genesis_a11y_more_link( $instance['more_text'] ) );
-                }
-                else {
+				if ( 'excerpt' == $instance['content_type'] ) {
+					the_excerpt();
+					printf( '<a href="%s" class="more-link">%s</a>', get_permalink(), genesis_a11y_more_link( $instance['more_text'] ) );
+				}
+				else {
 				    if ( empty( $instance['content_limit'] ) ) {
 
 					    global $more;
@@ -169,7 +169,7 @@ class Genesis_Featured_Page_Excerpt extends WP_Widget {
 				    } else {
 					    the_content_limit( (int) $instance['content_limit'], genesis_a11y_more_link( esc_html( $instance['more_text'] ) ) );
 				    }
-                }
+				}
 
 				echo genesis_html5() ? '</div>' : '';
 
@@ -204,11 +204,9 @@ class Genesis_Featured_Page_Excerpt extends WP_Widget {
 	 * @return array Settings to save or bool false to cancel saving
 	 */
 	function update( $new_instance, $old_instance ) {
-
 		$new_instance['title']     = strip_tags( $new_instance['title'] );
 		$new_instance['more_text'] = strip_tags( $new_instance['more_text'] );
 		return $new_instance;
-
 	}
 
 	/**
@@ -219,7 +217,6 @@ class Genesis_Featured_Page_Excerpt extends WP_Widget {
 	 * @param array $instance Current settings
 	 */
 	function form( $instance ) {
-
 		//* Merge with defaults
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
@@ -276,17 +273,12 @@ class Genesis_Featured_Page_Excerpt extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_title' ) ); ?>"><?php _e( 'Show Page Title', 'genesis' ); ?></label>
 		</p>
 
-        <p>
-            Show content:<br />
-            <label><input type="radio" name="<?php echo esc_attr( $this->get_field_name( 'content_type' ) ); ?>" value="none" <?php checked( $instance['content_type'], 'none' ); ?> />No content</label><br />
-            <label><input type="radio" name="<?php echo esc_attr( $this->get_field_name( 'content_type' ) ); ?>" value="excerpt" <?php checked( $instance['content_type'], 'excerpt' ); ?> />Show Page Excerpt</label><br />
-            <label><input type="radio" name="<?php echo esc_attr( $this->get_field_name( 'content_type' ) ); ?>" value="content" <?php checked( $instance['content_type'], 'content' ); ?> />Show Page Content (set optional limit below)</label><br />
-        </p>
-
-		<!--<p>
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_content' ) ); ?>" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'show_content' ) ); ?>" value="1"<?php checked( $instance['show_content'] ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'show_content' ) ); ?>"><?php _e( 'Show Page Content', 'genesis' ); ?></label>
-		</p>-->
+		<p>
+			Show content:<br />
+			<label><input type="radio" name="<?php echo esc_attr( $this->get_field_name( 'content_type' ) ); ?>" value="none" <?php checked( $instance['content_type'], 'none' ); ?> />No content</label><br />
+			<label><input type="radio" name="<?php echo esc_attr( $this->get_field_name( 'content_type' ) ); ?>" value="excerpt" <?php checked( $instance['content_type'], 'excerpt' ); ?> />Show Page Excerpt</label><br />
+			<label><input type="radio" name="<?php echo esc_attr( $this->get_field_name( 'content_type' ) ); ?>" value="content" <?php checked( $instance['content_type'], 'content' ); ?> />Show Page Content (set optional limit below)</label><br />
+        	</p>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'content_limit' ) ); ?>"><?php _e( 'Content Character Limit', 'genesis' ); ?>:</label>
@@ -298,21 +290,19 @@ class Genesis_Featured_Page_Excerpt extends WP_Widget {
 			<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'more_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'more_text' ) ); ?>" value="<?php echo esc_attr( $instance['more_text'] ); ?>" />
 		</p>
 		<?php
-
 	}
-
 }
 
 
 // Load the modified Featured Post widget after the Genesis version as it inherits from the Genesis version.
-add_action( 'widgets_init', 'fpwe_load_widgets' );
-function fpwe_load_widgets() {
-    register_widget( 'Genesis_Featured_Page_Excerpt' );
+add_action( 'widgets_init', 'gfpe_load_widgets' );
+function gfpe_load_widgets() {
+	register_widget( 'Genesis_Featured_Page_Excerpt' );
 }
 
 
 // Enable excerpt support on pages otherwise the widget won't work.
 function gfpe_add_excerpts_to_pages() {
-  add_post_type_support( 'page', 'excerpt' );
+	add_post_type_support( 'page', 'excerpt' );
 }
 add_action( 'init', 'gfpe_add_excerpts_to_pages' );
