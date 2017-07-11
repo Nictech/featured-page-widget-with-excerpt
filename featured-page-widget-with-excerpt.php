@@ -4,7 +4,7 @@ Plugin Name: Genesis Featured Page Widget (with Excerpt)
 Plugin URI: http://www.damiencarbery.com
 Description: Extension of Genesis Featured Page widget, with option to use excerpt instead of character count. Requires Genesis framework.
 Author: Damien Carbery
-Version: 0.1
+Version: 0.2
 */
 
 /**
@@ -310,3 +310,9 @@ function fpwe_load_widgets() {
     register_widget( 'Genesis_Featured_Page_Excerpt' );
 }
 
+
+// Enable excerpt support on pages otherwise the widget won't work.
+function gfpe_add_excerpts_to_pages() {
+  add_post_type_support( 'page', 'excerpt' );
+}
+add_action( 'init', 'gfpe_add_excerpts_to_pages' );
