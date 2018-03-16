@@ -4,7 +4,7 @@ Plugin Name: Genesis Featured Page Widget (with Excerpt)
 Plugin URI: http://www.damiencarbery.com
 Description: Extension of Genesis Featured Page widget, with option to use excerpt instead of character count. Requires Genesis framework.
 Author: Damien Carbery
-Version: 0.2
+Version: 0.3
 */
 
 /**
@@ -152,7 +152,9 @@ class Genesis_Featured_Page_Excerpt extends WP_Widget {
 
 				if ( 'excerpt' == $instance['content_type'] ) {
 					the_excerpt();
-					printf( '<a href="%s" class="more-link">%s</a>', get_permalink(), genesis_a11y_more_link( $instance['more_text'] ) );
+					if ( ! empty( $instance['more_text'] ) ) {
+						printf( '<a href="%s" class="more-link">%s</a>', get_permalink(), genesis_a11y_more_link( $instance['more_text'] ) );
+					}
 				}
 				else {
 				    if ( empty( $instance['content_limit'] ) ) {
