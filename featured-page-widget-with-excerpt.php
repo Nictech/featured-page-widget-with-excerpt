@@ -5,9 +5,9 @@ Plugin URI: https://www.damiencarbery.com/2017/07/genesis-featured-page-widget-w
 Description: Extension of Genesis Featured Page widget, with option to use excerpt instead of character count. Requires Genesis framework.
 Author: Damien Carbery
 Author URI: https://www.damiencarbery.com
-Version: $Revision: 4772 $
-Genesis tested up to: 3.1.1
-$Id: featured-page-widget-with-excerpt.php 4772 2019-09-01 20:04:08Z damien $
+Version: $Revision: 4821 $
+Genesis tested up to: 3.1.2
+$Id: featured-page-widget-with-excerpt.php 4821 2019-09-20 11:46:39Z damien $
 */
 
 
